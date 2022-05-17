@@ -1,0 +1,80 @@
+<div class="noc-container">
+    <div class="noc-window">
+        <div class="main-content" style="overflow: unset; ">
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center" style="padding-bottom: 10px;">
+                <div fxFlex="calc(30% - 5px)" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card style="padding: 3px;">
+                        <mat-card-content>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%">
+                                    <mat-icon class=" material-icons-new outline-dns icon-white"></mat-icon>
+                                </div>
+                                <div fxFlex="80%" fxLayout="column" fxLayoutAlign="space-between center">
+                                    <h5>
+                                        Total Installed Across Globe
+                                    </h5>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <h5>
+                                        <b>{{ totalCount }}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="calc(30% - 5px)" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card style="padding: 3px;">
+                        <mat-card-content>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%">
+                                    <mat-icon class=" material-icons-new outline-bug_report icon-white">
+
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex="80%" fxLayout="column" fxLayoutAlign="space-between center">
+                                    <h5>
+                                        Total Unhealthy Across Globe
+                                    </h5>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <h5>
+                                        <b>{{unhealthyCount}}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="calc(30% - 5px)" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card style="padding: 3px;">
+                        <mat-card-content>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%">
+                                    <mat-icon class=" material-icons-new outline-error_outline icon-white">
+
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex="80%" fxLayout="column" fxLayoutAlign="space-between center">
+                                    <h5>
+                                        Most Unhealthy Building Across Globe
+                                    </h5>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <h5>
+                                        <b>{{ unhealthybuilding}}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center" style="padding-bottom: 10px;">
+                <div fxFlex="100%" *ngIf="masterArray?.length > 0">
+                    <app-amcharts [masterArray]="masterArray" [unhealthyMaster]="unhealthyMaster" [selecttype]="selecttype"></app-amcharts>
+                </div>
+            </div>
+            <app-filter-data-component [siteSelect]="siteSelect" (getDataByDates)="getDataByDates($event)" [selected]="selected" (getselectUpdated)="getselectUpdated($event)" (applyFilter)="applyFilter($event)" [checkBox]="checkBox" [tableData]="filteredArray" (sendMails)="sendMails()"
+                [tableFieldsName]="tableFieldsName"></app-filter-data-component>
+            <app-devices-table-generic class="full-width" *ngIf="tableData.length > 0" [selected]="selected" [tableFields]="tableFields" [tableFilter]="filterData" [tableData]="tableData" (rowSelect)="rowSelect($event)" (filteredData)="filteredData($event)"></app-devices-table-generic>
+        </div>
+    </div>
+</div>

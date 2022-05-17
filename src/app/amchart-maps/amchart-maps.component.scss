@@ -1,0 +1,12 @@
+.chartdiv1 {
+    width: 100%;
+    height: calc(100% - 25px);
+    // overflow: hidden;
+}
+
+.graph {
+    // flex: 1 1 auto;
+    background: rba(0, 0, 0, 0.1);
+    min-width: 0;
+    /* NEW */
+}

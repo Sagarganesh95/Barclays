@@ -1,0 +1,32 @@
+<div class="noc-container" [class.alternative]="otherTheme">
+    <div class="noc-window">
+        <div *ngIf="loading else loaded">
+            Loading Data
+        </div>
+        <ng-template #loaded>
+            <div *ngIf="sitesName.length > 0" fxLayout="column" fxFlex=100 style="padding:5px;">
+                <div fxFlex="40">
+                    <div fxLayout="row wrap" fxLayoutGap="5px grid" style="height:100%">
+                        <div *ngFor="let card of cards " (click)="sensorTypes(card)" fxFlex>
+                            <app-amchart-solid-gauge [cards]="card"></app-amchart-solid-gauge>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="60" style="margin-top:10px;">
+                    <div fxLayout="row wrap" fxLayoutGap="5px grid" fxFlex>
+                        <div fxFlex="50">
+                            <mat-card fxFlex=100>
+                                <app-amchart-maps *ngIf="mapData.length > 0" [mapData]="mapData"></app-amchart-maps>
+                            </mat-card>
+                        </div>
+                        <div fxFlex="50">
+                            <mat-card fxFlex=100 style="padding: 0;overflow: auto;" *ngIf="tableData.length > 0">
+                                <app-adappt-data-table class="full-width" [tableFields]="tableFields" [tableData]="tableData" [tableFilter]="tableFilter"></app-adappt-data-table>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

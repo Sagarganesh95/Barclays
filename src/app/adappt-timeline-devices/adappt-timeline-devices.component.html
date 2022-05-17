@@ -1,0 +1,14 @@
+<mat-form-field>
+    <mat-label> Type of Data</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="selectchange($event.value)">
+        <mat-option *ngFor="let dt of deviesTypes" [value]="dt.value">
+            {{dt.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+
+
+<div id="chartdivdevice"></div>
+<div style="height: 20px;position: relative;top: -20px;width: 100px;background: #424242;z-index: 10;"></div>

@@ -1,0 +1,41 @@
+.amcharts-chart-div > a {
+  display: none !important;
+}
+
+.greenDot {
+  height: 25px;
+  width: 25px;
+  background-color: #00937c;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.redDot {
+  height: 25px;
+  width: 25px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  display: inline-block;
+}
+.blueDot {
+  height: 25px;
+  width: 25px;
+  background-color: #0000ff;
+  border-radius: 50%;
+  display: inline-block;
+}
+// #chartdiv {
+//     width: 30vw;
+//     height: 45vh;
+//   }
+
+#chartdiv2 {
+  width: 100%;
+  height: 400px;
+}
+
+.graph {
+  flex: 1 1 auto;
+  background: rba(0, 0, 0, 0.1);
+  min-width: 0; /* NEW */
+}

@@ -1,0 +1,155 @@
+<table mat-table [dataSource]="dataSource" class="full-width" matSort>
+
+
+    <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox color="primary" (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected() || rowSelect.emit(selection.selected)" [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+            <mat-checkbox color="primary" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row) ">
+            </mat-checkbox>
+        </td>
+    </ng-container>
+    <ng-container [matColumnDef]="item.objectName" *ngFor="let item of tableFields">
+        <ng-template #changeType>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style=" text-align:center"> {{item.displayName}} </th>
+        </ng-template>
+        <ng-template *ngIf="item.type == 'ids'">
+            <th mat-header-cell *matHeaderCellDef sticky> {{item.displayName}} </th>
+        </ng-template>
+
+        <div *ngIf="item.type == 'areaType';else changeType ">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style=" text-align:center">
+                <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10 grid">
+                    <div fxFlex="50">
+                        Desk-
+                    </div>
+                    <div fxFlex="50">
+                        <mat-icon class=" material-icons-new outline-event_seat icon-white" style="width: 25px;height: 25px;"></mat-icon>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                    <div fxFlex="50">
+                        Room-
+                    </div>
+                    <div fxFlex="50">
+                        <mat-icon class=" material-icons-new outline-camera icon-white" style="width: 25px;height: 25px;"></mat-icon>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                    <div fxFlex="50">
+                        Segments
+                    </div>
+                    <div fxFlex="50">
+                        <mat-icon class=" material-icons-new outline-device_hub icon-white" style="width: 25px;height: 25px;"></mat-icon>
+                    </div>
+                </div>
+                <p>
+
+
+                </p>
+            </th>
+        </div>
+
+        <div *ngIf="item.type == 'status'; else notType">
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button class="primary" style="cursor: default;">
+                    <mat-icon [ngClass]="{'alert-radio-green':element.status === true }"
+                     class="mat-icon material-icons alert-radio-red">fiber_manual_record</mat-icon>
+                </button>
+            </td>
+        </div>
+        <div *ngIf="item.type == 'ids'; else notType">
+            <td mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+        </div>
+
+        <div *ngIf="item.type == 'subject'; else notType">
+            <td mat-cell *matCellDef="let element">
+                <button mat-flat-button (click)="setReportissues(element)">
+                    <ng-container *ngIf="!element?.subject" >
+                        <mat-icon class="mat-icon material-icons" >message_outline</mat-icon>
+                    </ng-container>
+                <span style="text-decoration: underline;">
+                    {{ element?.subject}}
+                </span> </button>
+            </td>
+        </div>
+        <div *ngIf="item.type == 'plot'; else notType">
+            <td mat-cell *matCellDef="let row">
+                <button mat-icon-button class="primary">
+                    <mat-icon class="mat-icon material-icons" (click)="openDialog(row)">bar_chart</mat-icon>
+                </button>
+            </td>
+        </div>
+        <div *ngIf="item.type == 'routePage'; else notType">
+            <td mat-cell *matCellDef="let element">
+                <button class="input-margin" mat-stroked-button color="primary" [routerLink]="['/detailView',element.siteName]" routerLinkActive="active">Detail</button>
+            </td>
+        </div>
+        <div *ngIf="item.type == 'closureDateChips'">
+            <td mat-cell *matCellDef="let element" style="align-items: stretch;margin-right: 10px;margin-top: 10px;">
+                <mat-form-field appearance="outline" style="width:95%; max-width: 95%; min-width: 5%;">
+                    <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let date of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(date)" color="primary">
+                            {{date.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input matInput placeholder="Choose a date" [(ngModel)]="selected" (ngModelChange)="getDataByDates($event)" [satDatepicker]="picker2">
+                        <sat-datepicker #picker2 [rangeMode]="true">
+                        </sat-datepicker>
+                        <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
+                    </mat-chip-list>
+                </mat-form-field>
+            </td>
+        </div>
+        <div *ngIf="item.type == 'TextForm'; else notType">
+            <td mat-cell *matCellDef="let element" style="align-items: stretch;">
+                <mat-form-field appearance="outline" fxFlex="100%">
+                    <textarea matInput placeholder="Leave a comment" [(ngModel)]="element.remarks" matTextareaAutosize matAutosizeMinRows=3 matAutosizeMaxRows=3></textarea>
+                </mat-form-field>
+            </td>
+        </div>
+
+        <div *ngIf="item.type == 'responseTime'; else  notType">
+            <td mat-cell *matCellDef="let element">
+                <div fxLayout="row wrap">
+                    <div fxFlex="80%">
+                        {{element[item.objectName]}}
+                    </div>
+                    <div fxFlex="20%">
+                        <mat-icon class=" material-icons-new {{ element?.resReview }} icon-white" style="width: 25px;height: 25px;"></mat-icon>
+                    </div>
+                </div>
+            </td>
+        </div>
+        <div *ngIf="item.type == 'areaType'; else  notType">
+            <td mat-cell *matCellDef="let element">
+                <div fxLayout="row wrap">
+                    <div fxFlex="80%">
+                        {{ element[item.objectName] }}
+                    </div>
+                    <div fxFlex="20%">
+                        <mat-icon class=" material-icons-new {{ element?.areaType }} icon-white" style="width: 25px;height: 25px;"></mat-icon>
+
+                    </div>
+                </div>
+            </td>
+        </div>
+        <ng-template #notType>
+            <td mat-cell *matCellDef="let element" style=" text-align:center"> {{element[item.objectName]}} </td>
+        </ng-template>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="controls" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+            <button class="input-margin" mat-stroked-button color="primary">Detail</button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[50, 200, 500, 1000,5000]"></mat-paginator>

@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+// @import './adappt-constants.scss';
+$adappt-color: ( 50: #dff2ef, 100: #b1ded6, 200: #7fcabd, 300: #4db4a2, 400: #26a38f, 500: #00937c, 600: #008671, 700: #007661, 800: #006653, 900: #006450, A100: #a7ffeb, A200: #64ffda, A400: #1de9b6, A700: #00bfa5, contrast: ( 50: $black-87-opacity, 100: $black-87-opacity, 200: $black-87-opacity, 300: $black-87-opacity, 400: $black-87-opacity, 500: white, 600: white, 700: white, 800: $white-87-opacity, 900: $white-87-opacity, A100: $black-87-opacity, A200: $black-87-opacity, A400: $black-87-opacity, A700: $black-87-opacity, ));
+$adappt-app-primary: mat-palette($adappt-color);
+$adappt-app-accent: mat-palette($adappt-color, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$adappt-app-warn: mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$adappt-light-app-theme: mat-light-theme($adappt-app-primary, $adappt-app-accent, $adappt-app-warn);
+$adappt-dark-app-theme: mat-dark-theme($adappt-app-primary, $adappt-app-accent, $adappt-app-warn);
+@include angular-material-theme($adappt-dark-app-theme);
+// @include angular-material-theme($adappt-dark-app-theme);
+.alternative {
+    @include angular-material-theme($adappt-light-app-theme);
+}
+
+$custom-typography: mat-typography-config( $font-family: 'Source Sans Pro, sans-serif', $headline: mat-typography-level(32px, 48px, 700), $body-1: mat-typography-level(16px, 24px, 500));
+@include mat-core($custom-typography);

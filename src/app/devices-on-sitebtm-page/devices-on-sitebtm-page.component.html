@@ -1,0 +1,267 @@
+<mat-nav-list>
+    <div mat-list-item style="text-align: center;">
+        <h2> Update Site Configuration</h2>
+    </div>
+    <form [formGroup]="bottomForm" autocomplete="off">
+        <div fxLayout="column wrap" fxLayoutAlign="center stretch" fxLayoutGap="5px">
+            <div *ngIf="loadingFlag != 0">
+                <mat-progress-bar [color]="color" [mode]="indeterminate">
+                </mat-progress-bar>
+            </div>
+            <div mat-list-item fxFlex="calc(25%- 5px)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Customers</mat-label>
+                    <mat-select placeholder="Select" formControlName="buildings" (selectionChange)="siteSelectChange($event)">
+                        <mat-optgroup *ngFor="let group of siteSelect" [disabled]="group.disabled" [label]="group.name">
+                            <mat-option *ngFor="let item of group.buildings" [disabled]="item.disabled" [value]=item.id>{{ item.alias}}
+                            </mat-option>
+                        </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div mat-list-item fxFlex="calc(25%- 5px)">
+                <mat-form-field appearance="outline">
+                    <input type="text" placeholder="Sale Type" aria-label="Number" matInput formControlName="salesTypes" [matAutocomplete]="sale">
+                    <mat-autocomplete #sale="matAutocomplete">
+                        <mat-option *ngFor="let option of SaleTypes" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div mat-list-item fxFlex="calc(25%- 5px)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Sensors To buildings </mat-label>
+                    <mat-select multiple [(ngModel)]="sensorT" [ngModelOptions]="{standalone: true}" (selectionChange)="changeSelect($event)">
+                        <mat-option *ngFor="let option of sensorTypes" [value]="option">{{option}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div mat-list-item fxFlex="calc(25%- 5px)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Sensor Types</mat-label>
+                    <mat-select multiple [(ngModel)]="sensorT" [ngModelOptions]="{standalone: true}" (selectionChange)="changeSelect($event)">
+                        <mat-option *ngFor="let option of sensorTypes" [value]="option">{{option}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div mat-list-item fxFlex="calc(25%- 5px)">
+                <ng-container *ngFor="let sen of sensorT">
+                    <span [ngSwitch]="sen">
+              <div class="mat-h4" *ngSwitchCase="'Nova'" formGroupName="nova" >
+                    <div class="mat-h4" fxLayout="column wrap" fxLayoutAlign="center center">
+                            <b>
+                                    {{ sen }}  
+                            </b> 
+                        </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+                      <div fxFlex="33%">
+                          <label for="">Shippment</label>    
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Installed</label>        
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Working</label>                   
+                      </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                        
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Shippment" formControlName="shippment"  >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Installed"  formControlName="installed" >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Working" formControlName="working"  >
+                          </mat-form-field>                      
+                      </div>
+                  </div>
+              </div>
+              <div *ngSwitchCase="'Desk'" formGroupName="desk">
+                    <div class="mat-h4" fxLayout="column wrap" fxLayoutAlign="center center">
+                        <b>
+                                {{ sen }}  
+                        </b> 
+                    </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+                      <div fxFlex="33%">
+                          <label for="">Shippment</label>    
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Installed</label>        
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Working</label>                   
+                      </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Shippment" formControlName="shippment"  >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Installed"  formControlName="installed" >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Working" formControlName="working"  >
+                          </mat-form-field>                      
+                      </div>
+                  </div>
+              </div>
+              <div *ngSwitchCase="'Host'" formGroupName="host" >
+                    <div class="mat-h4" fxLayout="column wrap" fxLayoutAlign="center center">
+                            <b>
+                                    {{ sen }}  
+                            </b> 
+                        </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+                      <div fxFlex="33%">
+                          <label for="">Shippment</label>    
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Installed</label>        
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Working</label>                   
+                      </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Shippment" formControlName="shippment"  >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Installed"  formControlName="installed" >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Working" formControlName="working"  >
+                          </mat-form-field>                      
+                      </div>
+                  </div>
+              </div>
+              <div *ngSwitchCase="'Day Light/Occupancy'" formGroupName="daylightOccupancy">
+                <div  class="mat-h4" fxLayout="column wrap" fxLayoutAlign="center center">
+                        <b>
+                                {{ sen }}  
+                        </b> 
+                    </div>
+                <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+                    <div fxFlex="33%">
+                        <label for="">Shippment</label>    
+                    </div>
+                    <div fxFlex="33%">
+                        <label for="">Installed</label>        
+                    </div>
+                    <div fxFlex="33%">
+                        <label for="">Working</label>                   
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                    <div fxFlex="33%">
+                        <mat-form-field  appearance="outline">
+                          <input matInput type="number" placeholder="Shippment" formControlName="shippment"  >
+                        </mat-form-field>                      
+                    </div>
+                    <div fxFlex="33%">
+                        <mat-form-field  appearance="outline">
+                          <input matInput type="number" placeholder="Installed"  formControlName="installed" >
+                        </mat-form-field>                      
+                    </div>
+                    <div fxFlex="33%">
+                        <mat-form-field  appearance="outline">
+                          <input matInput type="number" placeholder="Working" formControlName="working"  >
+                        </mat-form-field>                      
+                    </div>
+                </div>
+              </div>
+              <div *ngSwitchCase="'WLAD'" formGroupName="wlad">
+                    <div class="mat-h4" fxLayout="column wrap" fxLayoutAlign="center center">
+                            <b>
+                                    {{ sen }}  
+                            </b> 
+                        </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+                      <div fxFlex="33%">
+                          <label for="">Shippment</label>    
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Installed</label>        
+                      </div>
+                      <div fxFlex="33%">
+                          <label for="">Working</label>                   
+                      </div>
+                  </div>
+                  <div fxLayout="row wrap" fxLayoutAlign="space-between stretch">
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Shippment" formControlName="shippment"  >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Installed"  formControlName="installed" >
+                          </mat-form-field>                      
+                      </div>
+                      <div fxFlex="33%">
+                          <mat-form-field  appearance="outline">
+                            <input matInput type="number" placeholder="Working" formControlName="working"  >
+                          </mat-form-field>                      
+                      </div>
+                  </div>
+              </div>
+              <!-- <div *ngSwitchDefault>
+                Default
+              </p> -->
+              </span>
+
+                </ng-container>
+
+            </div>
+            <div mat-list-item fxFlex="calc(25%- 5px)">
+                <mat-form-field appearance="outline">
+                    <input matInput [matDatepickerFilter]="myFilter" formControlName="shippingDate" [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="bottomForm.controls['shippingDate'].errors?.required && bottomForm.controls['shippingDate'].touched">
+                        shippingDate is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-list-item fxFlex="calc(25%- 5px)" fxLayout="row wrap" fxLayoutAlign="center stretch">
+                <div fxFlexOffset="25%">
+
+                </div>
+                <div fxFlex="25%" style="padding-right: 10px!important;">
+                    <button fxFlex (click)="saveData()" mat-raised-button [disabled]="!bottomForm.valid" color="primary">Save</button>
+                </div>
+                <div fxFlex="25%">
+                    <button fxFlex mat-stroked-button (click)="clearData()" color="warn">Clear</button>
+                </div>
+                <div fxFlexOffset="25%">
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+</mat-nav-list>

@@ -1,0 +1,8 @@
+<mat-card style="padding:5px;height:100%;" routerLink="{{cards.routeLink}}" routerLinkActive="active">
+    <div>
+        <div style="color: #b3b3b3;" class="mat-caption-1" style="text-align:center">{{ cards.name}}</div>
+    </div>
+    <mat-divider [inset]="true"></mat-divider>
+    <div [id]="cards.chartName" class="chartdiv"></div>
+    <div [ngClass]="otherTheme == false?'flip-credit':'flop-credit'"></div>
+</mat-card>

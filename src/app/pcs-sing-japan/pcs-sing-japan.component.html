@@ -1,0 +1,252 @@
+<!-- <app-adappt-toolbar [title]="title" [sidenavOpened]="sidenavOpened"></app-adappt-toolbar> -->
+<div class="noc-container">
+    <div class="noc-window">
+        <div class="main-content" style="overflow: unset; ">
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center" style="padding-bottom: 10px;">
+                <div fxFlex="calc(30% - 5px)" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card style="padding: 3px;">
+                        <mat-card-content>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%">
+                                    <mat-icon class=" material-icons-new outline-meeting_room icon-white">
+
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex="80%" fxLayout="column" fxLayoutAlign="space-between center">
+                                    <h5>
+                                        Total Installed
+                                    </h5>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <h5>
+                                        <b>{{ totalCount}}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="calc(30% - 5px)" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card style="padding: 3px;">
+                        <mat-card-content>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%">
+                                    <mat-icon class=" material-icons-new outline-bug_report icon-white">
+
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex="80%" fxLayout="column" fxLayoutAlign="space-between center">
+                                    <h5>
+                                        Total Unhealthy
+                                    </h5>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <h5>
+                                        <b>{{unhealthyCount}}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="calc(30% - 5px)" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card style="padding: 3px;">
+                        <mat-card-content>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxFlex="20%">
+                                    <mat-icon class=" material-icons-new outline-error_outline icon-white">
+
+                                    </mat-icon>
+                                </div>
+                                <div fxFlex="80%" fxLayout="column" fxLayoutAlign="space-between center">
+                                    <h5>
+                                        Most Unhealthy Site
+                                    </h5>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <h5>
+                                        <b>{{ unhealthybuilding}}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center" style="padding-bottom: 10px;">
+                <div fxFlex="100%" *ngIf="masterArray?.length > 0">
+                    <!-- <app-charts [masterArray]="masterArray" [unhealthyMaster]="unhealthyMaster"></app-charts> -->
+                    <app-amcharts [masterArray]="masterArray" [selecttype]="selecttype" [sensorType]="sensorType" [unhealthyMaster]="unhealthyMaster"></app-amcharts>
+                </div> 
+            </div>
+            <div fxLayout="row   " fxLayoutGap="5px grid" fxLayoutAlign="space-between center" style="padding-bottom: 10px;">
+                <div fxFlex="34" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Date</mat-label>
+                                <input matInput
+                                placeholder="Choose a date" [(ngModel)]="selected" (ngModelChange)="getDataByDates($event)"
+                                [satDatepicker]="picker2" >
+                              <sat-datepicker #picker2 [rangeMode]="true">
+                              </sat-datepicker>
+                              <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
+                                <!-- <input matInput [owlDateTimeTrigger]="dt10" [owlDateTime]="dt10" [(ngModel)]="selected" (ngModelChange)="datepickerChange($event)" [selectMode]="'range'">
+                                <owl-date-time #dt10></owl-date-time> -->
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="20" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Customers</mat-label>
+                                <mat-select placeholder="Select" [(ngModel)]="selectedValue" (selectionChange)="getselectUpdated($event.value)" multiple>
+                                    <mat-optgroup *ngFor="let group of siteSelect" [disabled]="group.disabled" [label]="group.name">
+                                        <mat-option *ngFor="let item of group.buildings" [disabled]="item.disabled" [value]=item.alias>{{ item.alias}}
+                                        </mat-option>
+                                    </mat-optgroup>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="20" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Filter</mat-label>
+                                <input matInput [(ngModel)]="filterno" (keyup)="applyFilter($event.target.value)">
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="20" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Threshold Filter</mat-label>
+                                <input disabled matInput (keyup)="getThresholdData($event.target.value)">
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div fxFlex="6" fxlayout="column" fxFlexAlign="center stretch">
+                    <mat-card>
+                        <div fxLayout="column wrap" fxLayoutAlign="center stretch">
+                            <div  fxFlex="50" fxLayout="row" fxLayoutAlign="start stretch">
+                              <h5 style="margin: 0px 0 25px;">Options List</h5>
+                            </div>
+                            <div fxFlex="50">
+                                    <button mat-icon-button	 color="warn"    [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+                                            <mat-icon class=" material-icons-new outline-link icon-white" matBadge="{{badgeNo}}"  matBadgeColor="accent"></mat-icon>
+                                          </button>
+                                          <mat-menu direction="top" #menu="matMenu">
+                                            <div mat-menu-item>
+                                                <button   mat-raised-button (click)="sendMails()">
+                                                        <mat-icon class="mat-icon material-icons" matBadge="{{badgeNo}}"  matBadgeColor="accent"  >mail_outline</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div mat-menu-item>
+                                                <button  mat-raised-button (click)="printDocument()">
+                                                    <mat-icon class=" material-icons-new outline-cloud_download icon-white"   matBadgeColor="accent" ></mat-icon>
+                                                </button>
+                                            </div>
+                                                
+                                          </mat-menu>
+                            </div>
+                        </div>
+                </mat-card>
+                </div>
+            </div>
+
+            <div fxLayout="column " fxLayoutAlign="center stretch" fxLayoutGap="5px">
+                <table mat-table [dataSource]="dataSource" fxFlex="calc(100% - 5px)" matSort>
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef sticky> Serial No. </th>
+                        <td mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="customers">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Customers </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.customers}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="buildings">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Buildings </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.buildings}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="floors">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Floors </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.floors}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="RoomName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Room Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.roomName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="bleaddress">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ble Address </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.bleaddress}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lastresponsetime">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Response Time </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.lastresponsetime}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="noofresponses">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of Responses / Day </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.noofresponses}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="noofresponsesTillNow">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of Responses / Time Specifed </th>
+                        <td mat-cell *matCellDef="let element"> {{element?.noofresponsesTillNow}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="subject">
+                        <th mat-header-cell *matHeaderCellDef> Subject </th>
+                        <td mat-cell *matCellDef="let row">
+
+                            <button mat-flat-button (click)="setReportissues(row)">
+                   <ng-container *ngIf="!row?.subject" >
+                      <!-- <mat-icon class="mat-icon material-icons" >mail_outline</mat-icon> -->
+                      <mat-icon class="mat-icon material-icons" >message_outline</mat-icon>
+                   </ng-container>
+                  <span style="text-decoration: underline;">
+                      {{ row?.subject}}
+                  </span> </button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button class="primary">
+                <mat-icon [ngClass]="{'alert-radio-green':element.status === 1 }" class="mat-icon material-icons alert-radio-red">fiber_manual_record</mat-icon>
+              </button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Plot </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-icon-button class="primary">
+                <mat-icon class="mat-icon material-icons" (click)="openDialog(row)">bar_chart</mat-icon>
+              </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[200,300,500, 10000,50000]"></mat-paginator>
+            </div>
+
+        </div>
+    </div>
+</div>

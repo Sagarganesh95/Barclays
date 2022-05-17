@@ -1,0 +1,38 @@
+@import "../../adappt-constants.scss";
+
+
+// $md-drppicker-bg-color:  #424242;
+// $md-drppicker-color: #fff;
+.card-width {
+    width: 46vw;
+}
+
+.alert-radio-red {
+    color: red;
+}
+
+.alert-radio-green {
+    color: $adappt-green;
+}
+
+.unsetH2margin mat-icon {
+    font-size: 57px;
+}
+
+.material-icons-new {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;font-size: 57px;
+}
+
+.icon-white {
+    webkit-filter: contrast(4) invert(1);
+    -moz-filter: contrast(4) invert(1);
+    -o-filter: contrast(4) invert(1);
+    -ms-filter: contrast(4) invert(1);
+    filter: contrast(4) invert(1);
+}
+
+

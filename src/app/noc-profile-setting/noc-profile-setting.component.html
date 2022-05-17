@@ -1,0 +1,8 @@
+<div class="noc-container" [class.alternative]="otherTheme">
+    <div class="noc-window" appNoRightClickDirective>
+        <app-devices-table-generic class="full-width" *ngIf="tableData.length > 0 && siteSelect.length > 0" [selected]="selected" [tableFields]="tableFields" [siteSelect]="siteSelect" [tableFilter]="filterData" [tableData]="tableData" (updatedRow)="updatedRow($event)"
+            (filteredData)="filteredData($event)">
+        </app-devices-table-generic>
+        <button mat-raised-button color="primary" (click)="AddUser()">Add User</button>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div fxLayout="column wrap" appearance="outline" fxLayoutAlign="space-around stretch">
+    <h2 style="text-align: center;"> {{ this.data.customers.trim().toUpperCase()}} - {{this.data.buildings.trim().toUpperCase() }} - {{this.data.floors.trim().toUpperCase() }} </h2>
+    <h4 style="text-align: center;"> BLE-ADDRESS: {{ this.data.bleaddress }} - {{ this.data.lastresponsetime}}(IST) </h4>
+    <h5 style="text-align: center;"> No-Of-Responses as Date Specified is : {{ this.data.noofresponsesTillNow}} </h5>
+    <form [formGroup]="notesForm" fxLayout="column wrap" fxLayoutAlign="space-around stretch">
+        <div fxFlex="1 1 auto">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Area Name</mat-label>
+                <input matInput formControlName="areaName" readonly>
+            </mat-form-field>
+        </div>
+        <div fxFlex="1 1 auto">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Subject</mat-label>
+                <input matInput type="text" formControlName="subject" #subject [matAutocomplete]="auto" />
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>mode_edit</mat-icon>
+                <mat-hint>Subject should be Short as Possible!</mat-hint>
+                <mat-error *ngIf="notesForm.controls['subject'].errors?.required && notesForm.controls['subject'].touched">
+                    Subject is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="1 1 auto">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label> Message</mat-label>
+                <textarea formControlName="comments" matInput #comments></textarea>
+                <mat-error *ngIf="notesForm.controls['comments'].errors?.required">
+                    Subject is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="1 1 auto" fxLayout="row wrap" fxFlexAlign="center">
+            <button mat-raised-button (click)="saveLogs()" [mat-dialog-close]="dialogReturn" cdkFocusInitial color="primary" [disabled]="!notesForm.valid">Submit</button>
+            <button mat-stroked-button color="accent" (click)="clearLogs()">Cancel</button>
+            <button mat-stroked-button [color]="color" [disabled]="!notesForm.valid" [mat-dialog-close]="dialogReturn" (click)="resolveLogs()">Resolved</button>
+        </div>
+    </form>
+
+</div>

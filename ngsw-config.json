@@ -1,0 +1,48 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/*.css",
+          "/*.js",
+          "/*.ico"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css?family=Roboto:300,400,500",
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://fonts.gstatic.com/s/materialicons/**",
+          "https://fonts.gstatic.com/s/materialicons/**"
+        ]
+      }
+    }, {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name":"nocData",
+      "urls":[
+        "http://solutions.adapptonline.com:8000/api/sensors/pcsData",
+        "http://solutions.adapptonline.com:8000/api/buildings/all"
+      ],
+      "cacheConfig":{
+        "maxAge":"6h",
+        "maxSize": 5,
+        "timeout": "10s",
+        "strategy":"freshness"
+      }
+    }
+  ]
+}

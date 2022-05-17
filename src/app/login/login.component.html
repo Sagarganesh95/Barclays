@@ -1,0 +1,47 @@
+<div class="noc-container" [class.alternative]="otherTheme">
+    <div class="noc-window">
+        <div fxLayout="column" class="main-content" fxLayoutGap="5px ">
+            <div fxFlex="33">
+                <div class="md-padding" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="adappt-logo logo-lg"></div>
+                </div>
+            </div>
+            <div fxFlex="33">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <mat-card class="adappt-card" fxFlex="70" fxFlex.gt-md="40">
+                        <form fxLayout="column" [formGroup]="loginFormGroup" (ngSubmit)="login()">
+                            <mat-form-field fxFlex class="input-margin" appearance="outline">
+                                <mat-label>Email ID</mat-label>
+                                <input matInput formControlName="email" placeholder="Email ID" type="email" name="email" email required>
+                                <mat-error *ngIf="loginForm.email.invalid">Email ID is required!</mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex class="input-margin" appearance="outline">
+                                <mat-label>User Name</mat-label>
+                                <input matInput formControlName="username" placeholder="User Name" type="text" name="username" required>
+                                <mat-error *ngIf="loginForm.username.invalid">User Name is required!</mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex class="input-margin" appearance="outline">
+                                <mat-label>Password</mat-label>
+
+                                <input matInput [type]="show ? 'text' : 'password'" formControlName="password" placeholder="Password" type="password" name="password" required>
+                                <button mat-button *ngIf="!this.show" matSuffix mat-icon-button aria-label="Clear" (click)="this.show = !this.show;  ">
+                                        <mat-icon>visibility</mat-icon>
+                                </button>
+                                <button mat-button *ngIf="this.show" matSuffix mat-icon-button aria-label="Clear" (click)="this.show = !this.show;  ">
+                                    <mat-icon>visibility_off</mat-icon>
+                                </button>
+                                <mat-error *ngIf="loginForm.password.invalid">Password is required!</mat-error>
+                            </mat-form-field>
+                            <button type="submit" [disabled]="loginFormGroup.invalid" mat-raised-button color="primary">Login</button>
+                        </form>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxFlex="33" fxLayout="row" fxLayoutAlign="center stretch">
+                <div fxFlex="100" style="text-align: center;">
+                    <h2> powered By Adappt Intelligence </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

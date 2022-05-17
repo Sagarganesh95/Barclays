@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutGap="5px grid" fxLayoutAlign="space-evenly stretch" style="padding-bottom: 10px;">
+    <div fxFlex="34" fxlayout="column" fxFlexAlign="center stretch">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Date</mat-label>
+                    <input matInput placeholder="Choose a date" [(ngModel)]="selected" (ngModelChange)="sendDataByDates()" [satDatepicker]="picker2">
+                    <sat-datepicker #picker2 [rangeMode]="true">
+                    </sat-datepicker>
+                    <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
+
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="20" fxlayout="column" fxFlexAlign="center stretch">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Customers</mat-label>
+                    <mat-select placeholder="Select" [(ngModel)]="selectedValue" (selectionChange)="getselectUpdateds($event.value)" multiple>
+                        <mat-optgroup *ngFor="let group of siteSelect " [disabled]=" ( group.isRoom || group.isSegment || group.isDesk ) ? false: true" [label]="group.name">
+                            <mat-option *ngFor="let item of group.buildings" [disabled]="item.disabled" [value]=item.alias>{{ item.alias}}
+                            </mat-option>
+                        </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxFlex="26" fxlayout="column" fxFlexAlign="center stretch">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Filter</mat-label>
+                    <input matInput [(ngModel)]="filterData" (keyup)="applyFilterFunction($event)">
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex="20" fxlayout="column" fxFlexAlign="center stretch">
+        <mat-card>
+            <mat-card-content>
+                <div fxLayout="row" fxLayoutAlign="space-around strech" fxLayoutGap="5px grid">
+                    <div [fxFlex]="50" fxLayout="column" fxLayoutAlign="space-around center">
+                        <label style="margin-bottom: 25px;"> Send Mail </label>
+                        <button mat-raised-button (click)="sendMails()">
+                          <mat-icon class="mat-icon material-icons" matBadge="{{checkBox.length}}"  matBadgeColor="accent"  >mail_outline</mat-icon>
+                      </button>
+                    </div>
+                    <div [fxFlex]="50" fxLayout="column" fxLayoutAlign="space-around center">
+                        <label style="margin-bottom: 25px;"> Download Document </label>
+                        <button mat-raised-button (click)="printDocument()">
+                          <mat-icon class=" material-icons-new outline-vertical_align_bottom icon-white"   matBadgeColor="accent" ></mat-icon>
+                      </button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

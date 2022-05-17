@@ -1,0 +1,88 @@
+<mat-accordion multi="true">
+    <mat-expansion-panel [expanded]="true" (opened)="OpenStateOfBuilding = true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Building Wise Chart's
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxFlexAlign="center stretch">
+            <div fxFlex="50%">
+                <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                    <h4 style="text-align: center;margin-bottom: 1px;" fxFlex="50%"> Total Installed {{ selecttype }} Across Globe</h4>
+                    <h6 style="text-align: center;margin-bottom: 1px;" fxFlex="50%">Building wise per Instance</h6>
+                </div>
+                <app-piechartbuilding [masterArray]="masterArray" (messageEvent)="receiveMessage($event)"></app-piechartbuilding>
+            </div>
+            <div fxFlex="50%">
+                <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                    <h4 style="text-align: center;margin-bottom: 1px;"> Total Un-healthy {{ selecttype }} Across Globe</h4>
+                    <h6 style="text-align: center;margin-bottom: 1px;">Building wise per Instance</h6>
+                </div>
+
+                <app-piechartunhealthybu [masterArray]="unhealthyMaster" (messageEvent)="receiveMessage($event)"></app-piechartunhealthybu>
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true" (opened)="OpenStateTrend = true" (closed)="stepdata(0)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Trend of {{ selecttype }} health progress From Date of installation to Yesterday (Day Wise)
+            </mat-panel-title>
+            <mat-panel-description>
+                <p>
+                    <b> {{ buildigname }} </b>
+                </p>
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxFlexAlign="center stretch">
+            <div fxFlex="100%">
+                <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                    <h4 style="text-align: center;margin-bottom: 1px;"> Trend Of Selected Building</h4>
+                    <h6 style="text-align: center;margin-bottom: 1px;">Day wise</h6>
+
+                    <div *ngIf="favoriteType == 'FromBeginning' else begin ">
+                        <div fxFlex="100">
+                            <label>Interval : </label> &nbsp;
+                            <mat-radio-group aria-labelledby="radio-group-label" [(ngModel)]="favoriteType">
+                                <mat-radio-button class="radioButtonStyle" *ngFor="let type of typeArray" (click)="foo($event,type)" [value]="type">
+                                    {{type}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Date</mat-label>
+                                <input matInput placeholder="Choose a date" [(ngModel)]="selectedDates" (ngModelChange)="onDate()" [min]="trendDates.begin" [max]="trendDates.end" (click)="getFilterDate(selectedDate)" [satDatepicker]="picker2">
+                                <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
+                                <sat-datepicker #picker2 [rangeMode]="true" ngDefaultControl>
+                                </sat-datepicker>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                    <ng-template #begin>
+                        <div fxFlex="100">
+                            <label>Interval : </label> &nbsp;
+                            <mat-radio-group aria-labelledby="radio-group-label" [(ngModel)]="favoriteType">
+                                <mat-radio-button class="radioButtonStyle" *ngFor="let type of typeArray" (click)="foo($event,type)" [value]="type">
+                                    {{type}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </ng-template>
+
+                    <!-- {{ favoriteType}} -->
+                </div>
+                <div>
+                    <app-linechartforbuilding [selecttype]="selecttype" [favoriteType]="favoriteType" [selectedDate]="selectedDate" (trendDate)="trendDate($event)"></app-linechartforbuilding>
+                </div>
+
+            </div>
+        </div>
+
+
+    </mat-expansion-panel>
+</mat-accordion>

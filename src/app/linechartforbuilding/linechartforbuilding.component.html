@@ -1,0 +1,19 @@
+<div fxLayout="column">
+    <div fxFlex="100%">
+        <div class="graph">
+            <div *ngIf="loading; else loaded">
+                <div fxLayout="column" fxLayoutAlign="center stretch">
+                    <mat-progress-spinner style="margin:0 auto;" [mode]="mode">
+                    </mat-progress-spinner>
+                </div>
+            </div>
+            <ng-template #loaded>
+                <div id="chartdiv2"></div>
+                <div style="height: 20px;position: relative;top: -20px;width: 100px;background: #424242;z-index: 10;"></div>
+                <p>
+                    * Graph History of {{ selecttype }} Based on Pulse Data > 75% is considered as Working
+                </p>
+            </ng-template>
+        </div>
+    </div>
+</div>

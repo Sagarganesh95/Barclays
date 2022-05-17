@@ -1,0 +1,93 @@
+<div class="noc-container">
+    <div class="noc-window" [class.alternative]="otherTheme">
+        <div *ngIf="loading else loaded">
+            Loading Data
+        </div>
+        <ng-template #loaded>
+            <div class="main-content" style="overflow: unset; ">
+                <div fxLayout="column wrap" fxLayoutAlign="center stretch" fxLayout.lt-md="column wrap" fxLayoutAlign.lt-md="center stretch">
+                    <div fxLayout="row wrap" fxLayoutAlign="center stretch" fxLayout.lt-md="column wrap" fxLayoutAlign.lt-md="center stretch">
+                        <div fxFlex="20%" fxFlex.lt-md="50%">
+                            <mat-list>
+                                <mat-list-item>
+                                    <p> Site Name: <b>{{ this.siteName }}</b></p>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item>
+                                    <p> Purchase order Date: <b>{{ SiteOrderDate }}</b></p>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                                <mat-list-item>
+                                    <p> Site Live Date: <b> {{ SiteLiveDate }}</b></p>
+                                </mat-list-item>
+
+                            </mat-list>
+                        </div>
+                        <div fxFlex="80%" fxFlex.lt-md="50%">
+                            <div fxLayout="row wrap" fxLayoutAlign="center stretch" fxLayoutGap="10px grid" *ngIf="DeviceList.length != 0">
+                                <div fxFlex="20" *ngFor="let item of DeviceList">
+                                    <mat-card style="background-color: #00937d33;padding: 5px; border-radius: 15px;">
+                                        <mat-card-content style="padding-inline-start: 10px;padding-inline-end: 10px;">
+                                            {{ item.name}}
+                                            <mat-divider [inset]="true"></mat-divider>
+                                            <div fxLayout="row" fxLayoutAlign="space-evenly stretch" fxLayoutGap="5px grid">
+                                                <div fxFlex="33">
+                                                </div>
+                                                <div fxFlex="33" fxLayout="column" fxLayoutAlign="center stretch">
+                                                    <div class="mat-h4">
+                                                        Shippment
+                                                    </div>
+                                                    <div class="mat-headline">
+                                                        {{ item.deviceData.shippment }}
+                                                    </div>
+                                                </div>
+                                                <div fxFlex="33">
+                                                </div>
+                                            </div>
+                                            <mat-divider [inset]="true"></mat-divider>
+                                            <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px grid">
+                                                <div fxFlex="33" fxLayout="column" fxLayoutAlign="center stretch">
+                                                    <div class="mat-h4">
+                                                        Installed
+                                                    </div>
+                                                    <div class="mat-headline">
+                                                        {{ item.deviceData.installed }}
+                                                    </div>
+                                                </div>
+                                                <div fxFlex="33">
+
+                                                </div>
+                                                <div fxFlex="33" fxLayout="column" fxLayoutAlign="center stretch">
+                                                    <div class="mat-h4">
+                                                        Working
+                                                    </div>
+                                                    <div class="mat-headline">
+                                                        {{ item.deviceData.working}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;" fxLayout.gt-xs="column wrap" fxLayoutAlign.gt-xs="space-evenly stretch" fxLayoutGap.gt-xs="5px" fxLayout.gt-md="row wrap" fxLayoutAlign.gt-md="end stretch" fxLayoutGap.gt-md="5px">
+                        <button mat-button mat-stroked-button color="primary" (click)="openBottomSheet()" routerLinkActive="active">Shippment Input</button>
+                        <!-- <button mat-button mat-stroked-button color="primary" routerLink="/serviceTracker" routerLinkActive="active">Service Tracker</button> -->
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="5px grid">
+                        <div style="margin-top:10px;" fxFlex="100">
+                            <app-filter-data-component [siteSelect]="siteSelect" (getDataByDates)="getDataByDates($event)" [selected]="selected" (getselectUpdated)="getselectUpdated($event)" (applyFilter)="applyFilter($event)" [checkBox]="checkBox" [tableData]="filteredArray" (sendMails)="sendMails()"
+                                [tableFieldsName]="tableFieldsName"></app-filter-data-component>
+                        </div>
+                    </div>
+                    <div fxLayout="row wrap" style="margin-top:10px;" fxLayoutAlign="center stretch" fxLayout.lt-md="column wrap" fxLayoutAlign.lt-md="center stretch">
+                        <app-adappt-data-table class="full-width" *ngIf="tableData.length > 0" [tableFields]="tableFields" [tableData]="tableData" [tableFilter]="filterData" [selected]="selected" (rowSelect)="rowSelect($event)" (filteredData)="filteredData($event)"></app-adappt-data-table>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</div>

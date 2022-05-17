@@ -1,0 +1,157 @@
+@import "./adappt-constants.scss";
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~saturn-datepicker/bundle.css";
+.noc-container {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.noc-window {
+    height: 100%;
+    overflow: auto;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.tab-background {
+    background: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar:hover {
+    width: 15px;
+    // transform: scale(1.5);
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+app-adappt-toolbar mat-toolbar {
+    height: 65px;
+    background: url("./assets/img/pattern.png") repeat $adappt-gray !important;
+    color: #fff !important;
+}
+
+.adappt-host-sidenav {
+    min-width: 65px;
+    max-width: 65px;
+    border-right: none !important;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+    background: url("./assets/img/pattern.png") repeat $adappt-gray !important;
+}
+
+.adappt-icon-white {
+    width: 65px;
+    height: 65px;
+    background: url("./assets/img/adappt-icon-white.png") no-repeat center center $adappt-green;
+    background-size: 65%;
+}
+
+.main-content {
+    padding: 20px;
+    max-height: calc(100% - 60px);
+    overflow: auto;
+}
+
+.input-margin {
+    margin: 10px;
+}
+
+.container-padding {
+    padding: 10px;
+}
+
+.md-button {
+    min-width: 100px !important;
+    min-height: 45px !important;
+}
+
+.tab-background {
+    background: #fff;
+}
+
+.layout-container {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.layout {
+    width: 1680px;
+    height: 1050px;
+}
+
+@keyframes ble-in-use {
+    from {
+        color: blue;
+        transform: scale(1);
+    }
+    to {
+        color: $adappt-green;
+        transform: scale(1.2);
+    }
+}
+
+$md-drppicker-bg-color: #424242;
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+.transparent .mat-dialog-container {
+    box-shadow: none;
+    background: rgba(0, 0, 0, 0);
+}
+
+.bottom-sheet-class {
+    background: rgba(0, 0, 0, 0.781);
+}
+
+.mainSize {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

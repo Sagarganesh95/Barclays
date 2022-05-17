@@ -1,0 +1,22 @@
+.chartdiv {
+    width: 100%;
+    height: calc(100% - 20px);
+}
+
+.flip-credit {
+    height: 20px;
+    position: relative;
+    top: -20px;
+    width: 100px;
+    background: #424242;
+    z-index: 10;
+}
+
+.flop-credit {
+    height: 20px;
+    position: relative;
+    top: -20px;
+    width: 100px;
+    background: white;
+    z-index: 10;
+}
